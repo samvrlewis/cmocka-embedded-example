@@ -10,7 +10,15 @@ double tmp101_get_temperature(void)
     uint8_t data[2];
     i2c_read(TMP101_ADDRESS, 0, &data[0], 2);
 
-    // the first byte read is bits 12 to 4 and the second byte has bits 4 to 0
-    // see page 16 of the tmp_101 datasheet
-    uint16_t temperature = (data[0] << 4) | (data[1] >> 4);
+    // the 1st byte is bits 12 to 4 of the sample and the 2nd byte is bits 4 to 0
+    // see page 16 of the TMP_101 datasheet
+    uint16_t temperature_bits = (data[0] << 4) | (data[1] >> 4);
+
+    // The 12 bit sample is represented using 2s complement, for simplicity 
+    // (and because there's no 12 bit int representation), scale up the sample
+    // to 16 bits and adjust the bit resolution when converting later
+    int16_t temperature = temperature_bits << 4;
+
+    // shift the sample back down and convert by the TMP_101 bit resolution
+    return (double) ((temperature >> 4) * 0.625);
 }
