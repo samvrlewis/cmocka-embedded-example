@@ -32,7 +32,8 @@
 *.dSYM/
 *.su
 
-build/
+cmocka/
+obj/
 
 *.db
 *.db-wal
