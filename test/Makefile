@@ -5,7 +5,10 @@ INCLUDE_DIRS += -I$(CMOCKA_DIR)/include
 
 CFLAGS	= $(INCLUDE_DIRS)
 
-LDFLAGS	= -L$(CMOCKA_DIR)/build/src -Wl,-rpath=$(CMOCKA_DIR)/build/src -Wl,--wrap=i2c_read_blocking -lcmocka 
+LDFLAGS	= -L$(CMOCKA_DIR)/build/src -Wl,-rpath=$(CMOCKA_DIR)/build/src 
+LDFLAGS += -Wl,--wrap=i2c_read_blocking -Wl,--wrap=i2c_transmit_blocking 
+LDFLAGS += -lcmocka
+
 TARGET = test_tmp101
 
 SRC = i2c.c tmp101.c
