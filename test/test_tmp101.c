@@ -12,7 +12,6 @@ static void test_positive_temperature(void **state)
      will_return(__wrap_i2c_read_blocking, 0b0000000);
 
      float test = tmp101_get_temperature();
-     printf("final temp is %f\r\n", test);
 }
 
 static void test_negative_temperature(void **state)
