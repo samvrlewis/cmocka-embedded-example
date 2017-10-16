@@ -5,8 +5,9 @@ INCLUDE_DIRS += -I$(CMOCKA_DIR)/include
 
 CFLAGS	= $(INCLUDE_DIRS)
 
+MOCKS = i2c_read_blocking i2c_transmit_blocking
 LDFLAGS	= -L$(CMOCKA_DIR)/build/src -Wl,-rpath=$(CMOCKA_DIR)/build/src 
-LDFLAGS += -Wl,--wrap=i2c_read_blocking -Wl,--wrap=i2c_transmit_blocking 
+LDFLAGS += $(foreach MOCK,$(MOCKS),-Wl,--wrap=$(MOCK))
 LDFLAGS += -lcmocka
 
 TARGET = test_tmp101
