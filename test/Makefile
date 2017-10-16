@@ -38,7 +38,7 @@ $(TARGET):  $(SRC_OBJ) $(TEST_OBJ)
 
 $(CMOCKA_DIR):
 	mkdir -p $@
-	tar -xf cmocka-1.1.0.tar.xz -C $@ --strip-components 1
+	tar -xf $(CMOCKA_TAR) -C $@ --strip-components 1
 	mkdir -p $@/build
 	@(cd $@/build && cmake ../ && make -s)
 
